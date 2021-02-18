@@ -135,7 +135,7 @@ void cvtTwoPlaneYUVtoBGR(const uchar * y_data, const uchar * uv_data, size_t src
 {
     CV_INSTRUMENT_REGION();
 
-    cvtTwoPlaneYUVtoBGR(y_data, uv_data, src_step, dst_data, dst_step, dst_width, dst_height, dcn, swapBlue, uIdx);
+    cvtTwoPlaneYUVtoBGR(y_data, uv_data, src_step, src_step, dst_data, dst_step, dst_width, dst_height, dcn, swapBlue, uIdx);
 }
 
 void cvtTwoPlaneYUVtoBGR(const uchar * y_data, const uchar * uv_data, size_t y_step, size_t uv_step,
