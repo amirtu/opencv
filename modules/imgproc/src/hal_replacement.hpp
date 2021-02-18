@@ -515,6 +515,23 @@ inline int hal_ni_cvtTwoPlaneYUVtoBGR(const uchar * y_data, const uchar * uv_dat
                                       int dcn, bool swapBlue, int uIdx) { return CV_HAL_ERROR_NOT_IMPLEMENTED; }
 
 /**
+   @brief hal_cvtBGRtoTwoPlaneYUV
+   @param src_data,src_step source image data and step
+   @param y_data,uv_data destination image data
+   @param y_step, uv_step destination image steps
+   @param width,height image size
+   @param scn source image channels (3 or 4)
+   @param swapBlue if set to true B and R source channels will be swapped (treat as RGB)
+   @param uIdx U-channel plane index (0 or 1)
+   Convert from BGR, RGB, BGRA or RGBA to YUV (YUV420sp (or NV12/NV21) - Y plane followed by interleaved U/V plane).
+   Only for CV_8U.
+ */
+inline int hal_ni_cvtBGRtoTwoPlaneYUV(const uchar * src_data, size_t src_step,
+                                      uchar * y_data, uchar * uv_data, size_t y_step, size_t uv_step,
+                                      int width, int height,
+                                      int scn, bool swapBlue, int uIdx) { return CV_HAL_ERROR_NOT_IMPLEMENTED; }
+
+/**
    @brief hal_cvtThreePlaneYUVtoBGR
    @param src_data,src_step source image data and step
    @param dst_data,dst_step destination image data and step
@@ -592,6 +609,7 @@ inline int hal_ni_cvtMultipliedRGBAtoRGBA(const uchar * src_data, size_t src_ste
 #define cv_hal_cvtBGRtoLab hal_ni_cvtBGRtoLab
 #define cv_hal_cvtLabtoBGR hal_ni_cvtLabtoBGR
 #define cv_hal_cvtTwoPlaneYUVtoBGR hal_ni_cvtTwoPlaneYUVtoBGR
+#define cv_hal_cvtBGRtoTwoPlaneYUV hal_ni_cvtBGRtoTwoPlaneYUV
 #define cv_hal_cvtThreePlaneYUVtoBGR hal_ni_cvtThreePlaneYUVtoBGR
 #define cv_hal_cvtBGRtoThreePlaneYUV hal_ni_cvtBGRtoThreePlaneYUV
 #define cv_hal_cvtOnePlaneYUVtoBGR hal_ni_cvtOnePlaneYUVtoBGR

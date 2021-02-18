@@ -145,7 +145,8 @@ void cvtTwoPlaneYUVtoBGR(const uchar * y_data, const uchar * uv_data, size_t y_s
 {
     CV_INSTRUMENT_REGION();
 
-    CALL_HAL(cvtTwoPlaneYUVtoBGR, cv_hal_cvtTwoPlaneYUVtoBGR, y_data, uv_data, y_step, uv_step, dst_data, dst_step, dst_width, dst_height, dcn, swapBlue, uIdx);
+    CALL_HAL(cvtTwoPlaneYUVtoBGR, cv_hal_cvtTwoPlaneYUVtoBGR,
+             y_data, uv_data, y_step, uv_step, dst_data, dst_step, dst_width, dst_height, dcn, swapBlue, uIdx);
 
     CV_CPU_DISPATCH(cvtTwoPlaneYUVtoBGR, (y_data, uv_data, y_step, uv_step, dst_data, dst_step, dst_width, dst_height, dcn, swapBlue, uIdx),
         CV_CPU_DISPATCH_MODES_ALL);
@@ -184,7 +185,8 @@ void cvtBGRtoTwoPlaneYUV(const uchar * src_data, size_t src_step,
 {
     CV_INSTRUMENT_REGION();
 
-    // TODO: add hal replacement method
+    CALL_HAL(cvtBGRtoTwoPlaneYUV, cv_hal_cvtBGRtoTwoPlaneYUV,
+             src_data, src_step, y_data, uv_data, dst_step, dst_step, width, height, scn, swapBlue, uIdx);
 
     CV_CPU_DISPATCH(cvtBGRtoTwoPlaneYUV, (src_data, src_step, y_data, uv_data, dst_step, width, height, scn, swapBlue, uIdx),
         CV_CPU_DISPATCH_MODES_ALL);
