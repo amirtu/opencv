@@ -128,14 +128,14 @@ void cvtTwoPlaneYUVtoBGR(const uchar * src_data, size_t src_step,
         CV_CPU_DISPATCH_MODES_ALL);
 }
 
-void cvtTwoPlaneYUVtoBGR(const uchar * y_data, const uchar * uv_data, size_t src_step,
+void cvtTwoPlaneYUVtoBGR(const uchar * y_data, const uchar * uv_data, size_t y_step, size_t uv_step,
                          uchar * dst_data, size_t dst_step,
                          int dst_width, int dst_height,
                          int dcn, bool swapBlue, int uIdx)
 {
     CV_INSTRUMENT_REGION();
 
-    CV_CPU_DISPATCH(cvtTwoPlaneYUVtoBGR, (y_data, uv_data, src_step, dst_data, dst_step, dst_width, dst_height, dcn, swapBlue, uIdx),
+    CV_CPU_DISPATCH(cvtTwoPlaneYUVtoBGR, (y_data, uv_data, y_step, uv_step, dst_data, dst_step, dst_width, dst_height, dcn, swapBlue, uIdx),
         CV_CPU_DISPATCH_MODES_ALL);
 }
 
@@ -406,12 +406,10 @@ void cvtColorTwoPlaneYUV2BGRpair( InputArray _ysrc, InputArray _uvsrc, OutputArr
 
     Mat ysrc = _ysrc.getMat(), uvsrc = _uvsrc.getMat();
 
-    CV_CheckEQ(ysrc.step, uvsrc.step, "");
-
     _dst.create( ysz, CV_MAKETYPE(depth, dcn));
     Mat dst = _dst.getMat();
 
-    hal::cvtTwoPlaneYUVtoBGR(ysrc.data, uvsrc.data, ysrc.step,
+    hal::cvtTwoPlaneYUVtoBGR(ysrc.data, uvsrc.data, ysrc.step, uvsrc.step,
                              dst.data, dst.step, dst.cols, dst.rows,
                              dcn, swapb, uidx);
 }
