@@ -1841,7 +1841,7 @@ inline void TEGRA_CVT2PYUVTOBGR_OVERLOADED(
             dst_width, dst_height, dcn, swapBlue, uIdx);
 }
 inline void TEGRA_CVT2PYUVTOBGR_OVERLOADED(
-        const uchar *src_data, const uchar *src_step, uchar *dst_data, size_t dst_step,
+        const uchar *src_data, size_t src_step, uchar *dst_data, size_t dst_step,
         int dst_width, int dst_height, int dcn, bool swapBlue, int uIdx)
 {
     TEGRA_CVT2PYUVTOBGR(
