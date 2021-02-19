@@ -3072,20 +3072,40 @@ TEST(ImgProc_RGB2YUV, regression_13668)
     EXPECT_EQ(res, ref);
 }
 
-TEST(ImgProc_cvtColorTwoPlane, missing_check_17036)  // test can be removed if required feature is implemented
+TEST(ImgProc_cvtColorTwoPlane, regression_17036)
 {
-    std::vector<uchar> y_data(700 * 480);
-    std::vector<uchar> uv_data(640 * 240);
+    RNG rng;
 
-    Mat y_plane_padding(480, 640, CV_8UC1, y_data.data(), 700);  // with stride
-    Mat uv_plane(240, 320, CV_8UC2, uv_data.data());
+    std::vector<uchar> y(640 * 480,  (uchar)rng.uniform(16, 235));
+    Mat y_mat(480, 640, CV_8UC1, y.data());
 
-    Mat result;
+    std::vector<uchar> uv(640 * 240, (uchar)rng.uniform(16, 240));
+    Mat uv_mat(240, 320, CV_8UC2, uv.data());
 
-    EXPECT_THROW(
-        cvtColorTwoPlane(y_plane_padding, uv_plane, result, COLOR_YUV2RGB_NV21);
-        , cv::Exception
-    );
+    std::vector<uchar> uv_strided(700 * 240, 0);
+    for (size_t i = 0; i < 240; ++i) {
+        for (size_t j = 0; j < 640; j++) {
+            uv_strided[i * 700 + j] = uv[i * 640 + j];
+        }
+    }
+    Mat uv_strided_mat(240, 320, CV_8UC2, uv_strided.data(), 700);
+
+    std::vector<uchar> y_strided(700 * 480, 0);
+    for (size_t i = 0; i < 480; ++i) {
+        for (size_t j = 0; j < 640; j++) {
+            y_strided[i * 700 + j] = y[i * 640 + j];
+        }
+    }
+    Mat y_strided_mat(480, 640, CV_8UC1, y_strided.data(), 700);
+
+    Mat rgb_mat, rgb_y_strided_mat, rgb_uv_strided_mat;
+
+    cvtColorTwoPlane(y_mat, uv_mat, rgb_mat, COLOR_YUV2RGB_NV21);
+    cvtColorTwoPlane(y_strided_mat, uv_mat, rgb_y_strided_mat, COLOR_YUV2RGB_NV21);
+    cvtColorTwoPlane(y_mat, uv_strided_mat, rgb_uv_strided_mat, COLOR_YUV2RGB_NV21);
+
+    EXPECT_TRUE(cv::norm(rgb_mat, rgb_y_strided_mat, NORM_INF) < DBL_EPSILON);
+    EXPECT_TRUE(cv::norm(rgb_mat, rgb_uv_strided_mat, NORM_INF) < DBL_EPSILON);
 }
 
 
