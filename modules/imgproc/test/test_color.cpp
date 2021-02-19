@@ -3082,30 +3082,30 @@ TEST(ImgProc_cvtColorTwoPlane, regression_17036)
     std::vector<uchar> uv(640 * 240, (uchar)rng.uniform(16, 240));
     Mat uv_mat(240, 320, CV_8UC2, uv.data());
 
-    std::vector<uchar> uv_strided(700 * 240, 0);
+    std::vector<uchar> uv_padded(700 * 240, 0);
     for (size_t i = 0; i < 240; ++i) {
         for (size_t j = 0; j < 640; j++) {
-            uv_strided[i * 700 + j] = uv[i * 640 + j];
+            uv_padded[i * 700 + j] = uv[i * 640 + j];
         }
     }
-    Mat uv_strided_mat(240, 320, CV_8UC2, uv_strided.data(), 700);
+    Mat uv_padded_mat(240, 320, CV_8UC2, uv_padded.data(), 700);
 
-    std::vector<uchar> y_strided(700 * 480, 0);
+    std::vector<uchar> y_padded(700 * 480, 0);
     for (size_t i = 0; i < 480; ++i) {
         for (size_t j = 0; j < 640; j++) {
-            y_strided[i * 700 + j] = y[i * 640 + j];
+            y_padded[i * 700 + j] = y[i * 640 + j];
         }
     }
-    Mat y_strided_mat(480, 640, CV_8UC1, y_strided.data(), 700);
+    Mat y_padded_mat(480, 640, CV_8UC1, y_padded.data(), 700);
 
-    Mat rgb_mat, rgb_y_strided_mat, rgb_uv_strided_mat;
+    Mat rgb_mat, rgb_y_padded_mat, rgb_uv_padded_mat;
 
     cvtColorTwoPlane(y_mat, uv_mat, rgb_mat, COLOR_YUV2RGB_NV21);
-    cvtColorTwoPlane(y_strided_mat, uv_mat, rgb_y_strided_mat, COLOR_YUV2RGB_NV21);
-    cvtColorTwoPlane(y_mat, uv_strided_mat, rgb_uv_strided_mat, COLOR_YUV2RGB_NV21);
+    cvtColorTwoPlane(y_padded_mat, uv_mat, rgb_y_padded_mat, COLOR_YUV2RGB_NV21);
+    cvtColorTwoPlane(y_mat, uv_padded_mat, rgb_uv_padded_mat, COLOR_YUV2RGB_NV21);
 
-    EXPECT_TRUE(cv::norm(rgb_mat, rgb_y_strided_mat, NORM_INF) < DBL_EPSILON);
-    EXPECT_TRUE(cv::norm(rgb_mat, rgb_uv_strided_mat, NORM_INF) < DBL_EPSILON);
+    EXPECT_TRUE(cv::norm(rgb_mat, rgb_y_padded_mat, NORM_INF) < DBL_EPSILON);
+    EXPECT_TRUE(cv::norm(rgb_mat, rgb_uv_padded_mat, NORM_INF) < DBL_EPSILON);
 }
 
 
