@@ -3104,8 +3104,8 @@ TEST(ImgProc_cvtColorTwoPlane, regression_17036)
     cvtColorTwoPlane(y_padded_mat, uv_mat, rgb_y_padded_mat, COLOR_YUV2RGB_NV21);
     cvtColorTwoPlane(y_mat, uv_padded_mat, rgb_uv_padded_mat, COLOR_YUV2RGB_NV21);
 
-    EXPECT_TRUE(cv::norm(rgb_mat, rgb_y_padded_mat, NORM_INF) < DBL_EPSILON);
-    EXPECT_TRUE(cv::norm(rgb_mat, rgb_uv_padded_mat, NORM_INF) < DBL_EPSILON);
+    EXPECT_DOUBLE_EQ(cvtest::norm(rgb_mat - rgb_y_padded_mat,  NORM_INF), .0);
+    EXPECT_DOUBLE_EQ(cvtest::norm(rgb_mat - rgb_uv_padded_mat, NORM_INF), .0);
 }
 
 
