@@ -3076,36 +3076,39 @@ TEST(ImgProc_cvtColorTwoPlane, regression_17036)
 {
     RNG rng;
 
-    std::vector<uchar> y(640 * 480,  (uchar)rng.uniform(16, 235));
-    Mat y_mat(480, 640, CV_8UC1, y.data());
-
-    std::vector<uchar> uv(640 * 240, (uchar)rng.uniform(16, 240));
-    Mat uv_mat(240, 320, CV_8UC2, uv.data());
-
+    std::vector<uchar> y_reference(640 * 480);
+    std::vector<uchar> uv_reference(640 * 240);
+    std::vector<uchar> y_padded(700 * 480, 0);
     std::vector<uchar> uv_padded(700 * 240, 0);
-    for (size_t i = 0; i < 240; ++i) {
-        for (size_t j = 0; j < 640; j++) {
-            uv_padded[i * 700 + j] = uv[i * 640 + j];
-        }
-    }
+
+    Mat y_reference_mat(480, 640, CV_8UC1, y_reference.data());
+    Mat uv_reference_mat(240, 320, CV_8UC2, uv_reference.data());
+    Mat y_padded_mat(480, 640, CV_8UC1, y_padded.data(), 700);
     Mat uv_padded_mat(240, 320, CV_8UC2, uv_padded.data(), 700);
 
-    std::vector<uchar> y_padded(700 * 480, 0);
+    rng.fill(y_reference_mat, RNG::UNIFORM, 16, 235);
+    rng.fill(uv_reference_mat, RNG::UNIFORM, 16, 240);
+
     for (size_t i = 0; i < 480; ++i) {
         for (size_t j = 0; j < 640; j++) {
-            y_padded[i * 700 + j] = y[i * 640 + j];
+            y_padded_mat.at<uchar>(i, j) = y_reference_mat.at<uchar>(i, j);
         }
     }
-    Mat y_padded_mat(480, 640, CV_8UC1, y_padded.data(), 700);
 
-    Mat rgb_mat, rgb_y_padded_mat, rgb_uv_padded_mat;
+    for (size_t i = 0; i < 240; ++i) {
+        for (size_t j = 0; j < 320; j++) {
+            uv_padded_mat.at<Vec2b>(i, j) = uv_reference_mat.at<Vec2b>(i, j);
+        }
+    }
 
-    cvtColorTwoPlane(y_mat, uv_mat, rgb_mat, COLOR_YUV2RGB_NV21);
-    cvtColorTwoPlane(y_padded_mat, uv_mat, rgb_y_padded_mat, COLOR_YUV2RGB_NV21);
-    cvtColorTwoPlane(y_mat, uv_padded_mat, rgb_uv_padded_mat, COLOR_YUV2RGB_NV21);
+    Mat rgb_reference_mat, rgb_y_padded_mat, rgb_uv_padded_mat;
 
-    EXPECT_DOUBLE_EQ(cvtest::norm(rgb_mat - rgb_y_padded_mat,  NORM_INF), .0);
-    EXPECT_DOUBLE_EQ(cvtest::norm(rgb_mat - rgb_uv_padded_mat, NORM_INF), .0);
+    cvtColorTwoPlane(y_reference_mat, uv_reference_mat, rgb_reference_mat, COLOR_YUV2RGB_NV21);
+    cvtColorTwoPlane(y_padded_mat, uv_reference_mat, rgb_y_padded_mat, COLOR_YUV2RGB_NV21);
+    cvtColorTwoPlane(y_reference_mat, uv_padded_mat, rgb_uv_padded_mat, COLOR_YUV2RGB_NV21);
+
+    EXPECT_DOUBLE_EQ(cvtest::norm(rgb_reference_mat - rgb_y_padded_mat, NORM_INF), .0);
+    EXPECT_DOUBLE_EQ(cvtest::norm(rgb_reference_mat - rgb_uv_padded_mat, NORM_INF), .0);
 }
 
 
