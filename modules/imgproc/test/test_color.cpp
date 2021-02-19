@@ -3089,14 +3089,14 @@ TEST(ImgProc_cvtColorTwoPlane, regression_17036)
     rng.fill(y_reference_mat, RNG::UNIFORM, 16, 235);
     rng.fill(uv_reference_mat, RNG::UNIFORM, 16, 240);
 
-    for (size_t i = 0; i < 480; ++i) {
-        for (size_t j = 0; j < 640; j++) {
+    for (int i = 0; i < y_reference_mat.rows; ++i) {
+        for (int j = 0; j < y_reference_mat.cols; j++) {
             y_padded_mat.at<uchar>(i, j) = y_reference_mat.at<uchar>(i, j);
         }
     }
 
-    for (size_t i = 0; i < 240; ++i) {
-        for (size_t j = 0; j < 320; j++) {
+    for (int i = 0; i < uv_reference_mat.rows; ++i) {
+        for (int j = 0; j < uv_reference_mat.cols; j++) {
             uv_padded_mat.at<Vec2b>(i, j) = uv_reference_mat.at<Vec2b>(i, j);
         }
     }
