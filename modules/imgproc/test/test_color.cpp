@@ -3074,12 +3074,12 @@ TEST(ImgProc_RGB2YUV, regression_13668)
 
 TEST(ImgProc_cvtColorTwoPlane, regression_17036)
 {
-    RNG rng;
+    RNG &rng = theRNG();
 
     std::vector<uchar> y_reference(640 * 480);
     std::vector<uchar> uv_reference(640 * 240);
-    std::vector<uchar> y_padded(700 * 480, 0);
-    std::vector<uchar> uv_padded(700 * 240, 0);
+    std::vector<uchar> y_padded(700 * 480);
+    std::vector<uchar> uv_padded(700 * 240);
 
     Mat y_reference_mat(480, 640, CV_8UC1, y_reference.data());
     Mat uv_reference_mat(240, 320, CV_8UC2, uv_reference.data());
