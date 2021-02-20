@@ -1173,8 +1173,10 @@ struct YUV420sp2RGB8Invoker : ParallelLoopBody
     uchar * dst_data;
     size_t dst_step;
     int width;
-    const uchar* my1, *muv;
-    size_t my1_step, muv_step;
+    const uchar* my1;
+    size_t my1_step;
+    const uchar* muv;
+    size_t muv_step;
 
     YUV420sp2RGB8Invoker(uchar * _dst_data, size_t _dst_step, int _dst_width,
                          const uchar* _y1, size_t _y1_step, const uchar* _uv, size_t _uv_step) :
