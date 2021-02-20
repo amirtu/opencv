@@ -1778,7 +1778,7 @@ TegraCvtColor_Invoker(bgrx2hsvf, bgrx2hsv, src_data + static_cast<size_t>(range.
     : CV_HAL_ERROR_NOT_IMPLEMENTED \
 )
 
-#define TEGRA_CVT2PYUVTOBGR(y_data, uv_data, y_step, uv_step, dst_data, dst_step, dst_width, dst_height, dcn, swapBlue, uIdx) \
+#define TEGRA_CVT2PYUVTOBGR(y_data, y_step, uv_data, uv_step, dst_data, dst_step, dst_width, dst_height, dcn, swapBlue, uIdx) \
 ( \
     CAROTENE_NS::isSupportedConfiguration() ? \
         dcn == 3 ? \

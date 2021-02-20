@@ -922,7 +922,7 @@ int ovx_hal_cvtGraytoBGR(const uchar * a, size_t astep, uchar * b, size_t bstep,
     return CV_HAL_ERROR_OK;
 }
 
-int ovx_hal_cvtTwoPlaneYUVtoBGR(const uchar * a, const uchar * b, size_t astep, size_t bstep, uchar * c, size_t cstep, int w, int h, int bcn, bool swapBlue, int uIdx)
+int ovx_hal_cvtTwoPlaneYUVtoBGR(const uchar * a, size_t astep, const uchar * b, size_t bstep, uchar * c, size_t cstep, int w, int h, int bcn, bool swapBlue, int uIdx)
 {
     if (skipSmallImages<VX_KERNEL_COLOR_CONVERT>(w, h))
         return CV_HAL_ERROR_NOT_IMPLEMENTED;
