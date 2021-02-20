@@ -122,10 +122,9 @@ void cvtTwoPlaneYUVtoBGR(const uchar * src_data, size_t src_step,
 {
     CV_INSTRUMENT_REGION();
 
-    CALL_HAL(cvtTwoPlaneYUVtoBGR, cv_hal_cvtTwoPlaneYUVtoBGR, src_data, src_step, dst_data, dst_step, dst_width, dst_height, dcn, swapBlue, uIdx);
-
-    CV_CPU_DISPATCH(cvtTwoPlaneYUVtoBGR, (src_data, src_step, dst_data, dst_step, dst_width, dst_height, dcn, swapBlue, uIdx),
-        CV_CPU_DISPATCH_MODES_ALL);
+    cvtTwoPlaneYUVtoBGR(
+            src_data, src_data + src_step * dst_height, src_step, src_step, dst_data, dst_step,
+            dst_width, dst_height, dcn, swapBlue, uIdx);
 }
 
 void cvtTwoPlaneYUVtoBGR(const uchar * y_data, const uchar * uv_data, size_t src_step,

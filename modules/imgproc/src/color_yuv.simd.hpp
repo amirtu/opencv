@@ -17,10 +17,6 @@ void cvtYUVtoBGR(const uchar * src_data, size_t src_step,
                  uchar * dst_data, size_t dst_step,
                  int width, int height,
                  int depth, int dcn, bool swapBlue, bool isCbCr);
-void cvtTwoPlaneYUVtoBGR(const uchar * src_data, size_t src_step,
-                         uchar * dst_data, size_t dst_step,
-                         int dst_width, int dst_height,
-                         int dcn, bool swapBlue, int uIdx);
 void cvtTwoPlaneYUVtoBGR(const uchar * y_data, const uchar * uv_data, size_t y_step, size_t uv_step,
                          uchar * dst_data, size_t dst_step,
                          int dst_width, int dst_height,
@@ -1818,17 +1814,6 @@ void cvtYUVtoBGR(const uchar * src_data, size_t src_step,
         CvtColorLoop(src_data, src_step, dst_data, dst_step, width, height, YCrCb2RGB_i<ushort>(dcn, blueIdx, isCbCr));
     else
         CvtColorLoop(src_data, src_step, dst_data, dst_step, width, height, YCrCb2RGB_f<float>(dcn, blueIdx, isCbCr));
-}
-
-void cvtTwoPlaneYUVtoBGR(const uchar * src_data, size_t src_step,
-                         uchar * dst_data, size_t dst_step,
-                         int dst_width, int dst_height,
-                         int dcn, bool swapBlue, int uIdx)
-{
-    CV_INSTRUMENT_REGION();
-
-    const uchar* uv = src_data + src_step * static_cast<size_t>(dst_height);
-    cvtTwoPlaneYUVtoBGR(src_data, uv, src_step, src_step, dst_data, dst_step, dst_width, dst_height, dcn, swapBlue, uIdx);
 }
 
 typedef void (*cvt_2plane_yuv_ptr_t)(uchar * /* dst_data*/,
