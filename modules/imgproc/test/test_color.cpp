@@ -3072,7 +3072,7 @@ TEST(ImgProc_RGB2YUV, regression_13668)
     EXPECT_EQ(res, ref);
 }
 
-TEST(ImgProc_cvtColorTwoPlane, y_plane_padding_differs_from_uv_plane_padding)
+TEST(ImgProc_cvtColorTwoPlane, y_plane_padding_differs_from_uv_plane_padding_17036)
 {
     RNG &rng = theRNG();
 
