@@ -922,6 +922,11 @@ int ovx_hal_cvtGraytoBGR(const uchar * a, size_t astep, uchar * b, size_t bstep,
     return CV_HAL_ERROR_OK;
 }
 
+int ovx_hal_cvtTwoPlaneYUVtoBGR(const uchar * a, size_t astep, uchar * b, size_t bstep, int w, int h, int bcn, bool swapBlue, int uIdx)
+{
+    return ovx_hal_cvtTwoPlaneYUVtoBGR(a, astep, a + h * astep, astep, b, bstep, w, h, bcn, swapBlue, uIdx);
+}
+
 int ovx_hal_cvtTwoPlaneYUVtoBGR(const uchar * a, size_t astep, const uchar * b, size_t bstep, uchar * c, size_t cstep, int w, int h, int bcn, bool swapBlue, int uIdx)
 {
     if (skipSmallImages<VX_KERNEL_COLOR_CONVERT>(w, h))

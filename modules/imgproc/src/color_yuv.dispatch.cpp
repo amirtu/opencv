@@ -122,6 +122,8 @@ void cvtTwoPlaneYUVtoBGR(const uchar * src_data, size_t src_step,
 {
     CV_INSTRUMENT_REGION();
 
+    CALL_HAL(cvtTwoPlaneYUVtoBGR, cv_hal_cvtTwoPlaneYUVtoBGR, src_data, src_step, dst_data, dst_step, dst_width, dst_height, dcn, swapBlue, uIdx);
+
     cvtTwoPlaneYUVtoBGR(
             src_data, src_step, src_data + src_step * dst_height, src_step, dst_data, dst_step,
             dst_width, dst_height, dcn, swapBlue, uIdx);
