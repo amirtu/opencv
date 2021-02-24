@@ -3089,16 +3089,8 @@ TEST(ImgProc_cvtColorTwoPlane, y_plane_padding_differs_from_uv_plane_padding_170
     rng.fill(y_reference_mat, RNG::UNIFORM, 16, 235 + 1);
     rng.fill(uv_reference_mat, RNG::UNIFORM, 16, 240 + 1);
 
-    for (int i = 0; i < y_reference_mat.rows; ++i) {
-        for (int j = 0; j < y_reference_mat.cols; j++) {
-            y_padded_mat.at<uchar>(i, j) = y_reference_mat.at<uchar>(i, j);
-        }
-    }
-    for (int i = 0; i < uv_reference_mat.rows; ++i) {
-        for (int j = 0; j < uv_reference_mat.cols; j++) {
-            uv_padded_mat.at<Vec2b>(i, j) = uv_reference_mat.at<Vec2b>(i, j);
-        }
-    }
+    y_reference_mat.copyTo(y_padded_mat(Rect(0, 0, y_reference_mat.cols, y_reference_mat.rows)));
+    uv_reference_mat.copyTo(uv_padded_mat(Rect(0, 0, uv_reference_mat.cols, uv_reference_mat.rows)));
 
     Mat rgb_reference_mat, rgb_y_padded_mat, rgb_uv_padded_mat;
 
