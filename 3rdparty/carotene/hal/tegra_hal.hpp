@@ -1833,19 +1833,19 @@ TegraCvtColor_Invoker(bgrx2hsvf, bgrx2hsv, src_data + static_cast<size_t>(range.
     : CV_HAL_ERROR_NOT_IMPLEMENTED \
 )
 inline int TEGRA_CVT2PYUVTOBGR_OVERLOADED(
+        const uchar *src_data, size_t src_step, uchar *dst_data, size_t dst_step,
+        int dst_width, int dst_height, int dcn, bool swapBlue, int uIdx)
+{
+    return TEGRA_CVT2PYUVTOBGR(
+            src_data, src_step, src_data + src_step * dst_height, src_step, dst_data, dst_step,
+            dst_width, dst_height, dcn, swapBlue, uIdx);
+}
+inline int TEGRA_CVT2PYUVTOBGR_OVERLOADED(
         const uchar *y_data, size_t y_step, const uchar *uv_data, size_t uv_step, uchar *dst_data, size_t dst_step,
         int dst_width, int dst_height, int dcn, bool swapBlue, int uIdx)
 {
     return TEGRA_CVT2PYUVTOBGR(
             y_data, y_step, uv_data, uv_step, dst_data, dst_step,
-            dst_width, dst_height, dcn, swapBlue, uIdx);
-}
-inline int TEGRA_CVT2PYUVTOBGR_OVERLOADED(
-        const uchar *src_data, size_t src_step, uchar *dst_data, size_t dst_step,
-        int dst_width, int dst_height, int dcn, bool swapBlue, int uIdx)
-{
-    return TEGRA_CVT2PYUVTOBGR(
-            src_data, src_data + src_step * dst_height, src_step, src_step, dst_data, dst_step,
             dst_width, dst_height, dcn, swapBlue, uIdx);
 }
 
