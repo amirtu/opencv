@@ -131,6 +131,8 @@ int ovx_hal_integral(int depth, int sdepth, int, const uchar * a, size_t astep, 
 #define cv_hal_cvtGraytoBGR ovx_hal_cvtGraytoBGR
 #undef cv_hal_cvtTwoPlaneYUVtoBGR
 #define cv_hal_cvtTwoPlaneYUVtoBGR ovx_hal_cvtTwoPlaneYUVtoBGR
+#undef cv_hal_cvtTwoPlaneYUVtoBGREx
+#define cv_hal_cvtTwoPlaneYUVtoBGREx ovx_hal_cvtTwoPlaneYUVtoBGREx
 #undef cv_hal_cvtThreePlaneYUVtoBGR
 #define cv_hal_cvtThreePlaneYUVtoBGR ovx_hal_cvtThreePlaneYUVtoBGR
 #undef cv_hal_cvtBGRtoThreePlaneYUV
