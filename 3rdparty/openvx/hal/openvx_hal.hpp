@@ -49,7 +49,7 @@ int ovx_hal_morph(cvhalFilter2D *filter_context, uchar *a, size_t astep, uchar *
 int ovx_hal_cvtBGRtoBGR(const uchar * a, size_t astep, uchar * b, size_t bstep, int w, int h, int depth, int acn, int bcn, bool swapBlue);
 int ovx_hal_cvtGraytoBGR(const uchar * a, size_t astep, uchar * b, size_t bstep, int w, int h, int depth, int bcn);
 int ovx_hal_cvtTwoPlaneYUVtoBGR(const uchar * a, size_t astep, uchar * b, size_t bstep, int w, int h, int bcn, bool swapBlue, int uIdx);
-int ovx_hal_cvtTwoPlaneYUVtoBGR(const uchar * a, size_t astep, const uchar * b, size_t bstep, uchar * c, size_t cstep, int w, int h, int bcn, bool swapBlue, int uIdx);
+int ovx_hal_cvtTwoPlaneYUVtoBGREx(const uchar * a, size_t astep, const uchar * b, size_t bstep, uchar * c, size_t cstep, int w, int h, int bcn, bool swapBlue, int uIdx);
 int ovx_hal_cvtThreePlaneYUVtoBGR(const uchar * a, size_t astep, uchar * b, size_t bstep, int w, int h, int bcn, bool swapBlue, int uIdx);
 int ovx_hal_cvtBGRtoThreePlaneYUV(const uchar * a, size_t astep, uchar * b, size_t bstep, int w, int h, int acn, bool swapBlue, int uIdx);
 int ovx_hal_cvtOnePlaneYUVtoBGR(const uchar * a, size_t astep, uchar * b, size_t bstep, int w, int h, int bcn, bool swapBlue, int uIdx, int ycn);
