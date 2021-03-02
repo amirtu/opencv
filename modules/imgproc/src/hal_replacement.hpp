@@ -499,7 +499,7 @@ inline int hal_ni_cvtLabtoBGR(const uchar * src_data, size_t src_step, uchar * d
 inline int hal_ni_cvtTwoPlaneYUVtoBGR(const uchar * src_data, size_t src_step, uchar * dst_data, size_t dst_step, int dst_width, int dst_height, int dcn, bool swapBlue, int uIdx) { return CV_HAL_ERROR_NOT_IMPLEMENTED; }
 
 /**
-   @brief hal_cvtTwoPlaneYUVtoBGR
+   @brief Extended version of hal_cvtTwoPlaneYUVtoBGR.
    @param y_data,y_step source image data and step (Y-plane)
    @param uv_data,uv_step source image data and step (UV-plane)
    @param dst_data,dst_step destination image data and step
